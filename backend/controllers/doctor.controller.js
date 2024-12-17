@@ -5,7 +5,7 @@ const createDoctor = async (req, res) => {
       const doctor = await DoctorService.create(req.body);
       return res.status(201).json({
         status: 'success',
-        status: 201,
+        statusCode: 201,
         message: 'Doctor created successfully',
         data: doctor
       });
@@ -56,12 +56,14 @@ const createDoctor = async (req, res) => {
         });
       }
       return res.status(200).json({
+        status: 'success',
         status: 200,
         message: 'Doctor retrieved successfully',
         data: doctor
       });
     } catch (error) {
       return res.status(404).json({
+        status: 'error',
         status: 404,
         message: 'Failed to retrieve doctor',
         error: error.message,
@@ -76,21 +78,21 @@ const createDoctor = async (req, res) => {
       if (!doctor) {
         return res.status(404).json({
           status: 'error',
-          status: 404,
+          statusCode: 404,
           message: 'Doctor not found',
           data: null
         });
       }
       return res.status(200).json({
         status: 'success',
-        status: 200,
+        statusCode: 200,
         message: 'Doctor updated successfully',
         data: doctor
       });
     } catch (error) {
       return res.status(400).json({
         status: 'error',
-        status: 400,
+        statusCode: 400,
         message: 'Failed to update doctor',
         error: error.message,
         data: null
@@ -103,7 +105,8 @@ const createDoctor = async (req, res) => {
       const result = await DoctorService.deleteDoctor(req.params.id);
       if (!result) {
         return res.status(404).json({
-          status: 404,
+          status: 'error',
+          statusCode: 404,
           message: 'Doctor not found',
           data: null
         });
@@ -117,7 +120,7 @@ const createDoctor = async (req, res) => {
     } catch (error) {
       return res.status(400).json({
         status: 'error',
-        status: 400,
+        statusCode: 400,
         message: 'Failed to delete doctor',
         error: error.message,
         data: null
